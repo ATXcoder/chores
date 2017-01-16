@@ -1,0 +1,20 @@
+#chore_icons > div{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+#chore_icons > div:hover{
+    background-color: #216a94;
+}
+
+.chore_icon_active{
+    background-color: #216a94;
+}
+
+.chore-card.panel-body{
+    background-color: #2a88bd;
+}
+.chore-card table{
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
