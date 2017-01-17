@@ -16,7 +16,7 @@
             <div class="panel-body">
                 <table>
                     <tr>
-                        
+
                         <td><img src="{{asset('img/chore_icons')."/".$data->icon_uri.".png"}}"></td>
                         <td><h3>{{$data->name}}</h3></td>
                         <td> has been created. Assign this chore in the <a href="#">Chore Manager</a></td>

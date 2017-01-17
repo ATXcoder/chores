@@ -19,5 +19,18 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/chore/new', 'ChoreController@create');
-Route::post('/chore/new','ChoreController@store');
+/*
+ * CHORE Routes
+ */
+
+
+/*
+ * ADMIN Routes
+ */
+Route::get('/admin',function(){
+    return view('admin.index');
+});
+Route::get('/admin/chore/new', 'ChoreController@create');
+Route::post('/admin/chore/new','ChoreController@store');
+Route::get('/admin/chore/assign','AdminController@choreAssignment');
+Route::get('/admin/user', 'AdminController@getUsers');

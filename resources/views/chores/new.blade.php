@@ -13,7 +13,7 @@
 
     <!-- FORM -->
     <div class="col-md-6">
-        {!! Form::open(['url' => 'chore/new']) !!}
+        {!! Form::open(['url' => 'admin/chore/new']) !!}
         <div class="form-group">
             {!! Form::label('name', 'Chore Name', ['class' => 'control-label']) !!}
             {!! Form::text('name', "", ['class' => 'form-control']) !!}

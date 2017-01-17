@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Chores</title>
+    <title>{{config('app.name')}}</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -52,7 +52,6 @@
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -61,7 +60,7 @@
                                 <ul class="dropdown-menu" role="menu">
                                     @if (Auth::user()->is_admin == 1)
                                         <li>
-                                            <a href="#">
+                                            <a href="{{ url('/admin') }}">
                                                 Admin Console
                                             </a>
                                         </li>

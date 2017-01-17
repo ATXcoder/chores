@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Chore;
 use Illuminate\Http\Request;
 
 class ChoreController extends Controller
@@ -34,7 +35,15 @@ class ChoreController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+        // Save a new chore
+        $chore = new Chore;
+        $chore->name = $request->name;
+        $chore->icon_uri = $request->icon_uri;
+        $chore->description = $request->description;
+        $chore->token_value = $request->token_value;
+        $chore->active = 1;
+        $chore->save();
+        // Show chore create confirmation
         return view('chores.created')->with('data',$request);
     }
 
