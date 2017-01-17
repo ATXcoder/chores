@@ -34,7 +34,9 @@ Route::get('/admin/chore/new', 'ChoreController@create');
 Route::post('/admin/chore/new','ChoreController@store');
 Route::get('/admin/chore/assign','AdminController@choreAssignment');
 Route::post('/admin/chore/assign','AdminController@assignChore');
+
 Route::get('/admin/chore/report', 'ChoreReportController@index');
+Route::post('/admin/chore/report', 'ChoreReportController@choreReport');
 
 Route::get('/admin/chore/manage', function(){
     return view('chores.manager');
