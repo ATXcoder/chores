@@ -1,5 +1,9 @@
 @extends('app')
 
+@section('css')
+    <link href="{{asset('css/home.css')}}" type="text/css" rel="stylesheet">
+@endsection
+
 @section('content')
     <?php
     echo '<script>';
@@ -12,7 +16,7 @@
                 @foreach($data as $user)
                     <div class="col-md-3">
                         <div class="panel panel-default">
-                            <a href="{{url('/admin/chore/new')}}">
+                            <a href="{{url('/admin/user/')."/".$user->id}}">
                                 <div class="panel-body">
                                     <img data-src="holder.js/140x140"
                                          @if($user->avatar_uri != null)

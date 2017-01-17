@@ -34,3 +34,5 @@ Route::get('/admin/chore/new', 'ChoreController@create');
 Route::post('/admin/chore/new','ChoreController@store');
 Route::get('/admin/chore/assign','AdminController@choreAssignment');
 Route::get('/admin/user', 'AdminController@getUsers');
+Route::get('/admin/user/{id}', 'AdminController@editUser');
+Route::post('/admin/user/{id}', 'AdminController@saveUser');
