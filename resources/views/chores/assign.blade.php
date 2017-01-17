@@ -3,27 +3,40 @@
 
 @section('css')
     <link href="{{asset('css/home.css')}}" type="text/css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <h2>Assign Chore</h2>
-                @foreach($data as $user)
-                <div class="col-md-3">
-                    <div class="panel panel-default">
-                        <a href="{{url('/admin/chore/new')}}">
-                            <div class="panel-body">
-                                <img data-src="holder.js/140x140"
-                                     src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTlhOWZmYzIzOSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1OWE5ZmZjMjM5Ij48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ1LjUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4="
-                                     class="center-block img-circle">
-                                <h2 class="text-center">{{$user->name}}</h2>
-                            </div>
-                        </a>
-                    </div>
+            @if(Session::has('chore'))
+                <div class="alert alert-success">
+                    <a class="close" data-dismiss="alert">×</a>
+                    <i class="fa fa-2x fa-check" style="color: #2ca02c" aria-hidden="true"></i>
+                    <strong style="color: #2a88bd">{!!Session::get('chore.user')!!}</strong> has been assigned the chore
+                    <strong style="color: #2a88bd">{!!Session::get('chore.chore')!!}</strong>
                 </div>
-                @endforeach
+            @endif
+            <div class="col-md-5">
+                <h2>Assign Chore</h2>
+                {!! Form::open(['url' => 'admin/chore/assign', 'method' => 'post']) !!}
+                <div class="form-group">
+                    {!! Form::label('assignee', 'Assign chore to', ['class' => 'control-label']) !!}
+                    {!! Form::select('assignee', $data['users'], null , ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('chore', 'Chore', ['class' => 'control-label']) !!} 
+                    {!! Form::select('chore', $data['chores'] , null , ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('due', 'Complete chore by', ['class' => 'control-label']) !!}
+                    {!! Form::date('due', \Carbon\Carbon::now()) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::submit('Assign Chore', ['class' => 'form-control btn btn-success', 'style'=>'width: 250px;']) !!}
+                </div>
+                {!! Form::close() !!}
+
             </div>
         </div>
     </div>

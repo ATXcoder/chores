@@ -1,8 +1,19 @@
 @extends('app')
 
+@section('css')
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
+        @if(Session::has('user'))
+            <div class="alert alert-success">
+                <a class="close" data-dismiss="alert">×</a>
+                <i class="fa fa-2x fa-check" style="color: #2ca02c" aria-hidden="true"></i>
+                <strong style="color: #2a88bd">{!!Session::get('user')!!}</strong> has been created.
+            </div>
+        @endif
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
@@ -57,14 +68,6 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="is_admin" class="col-md-4 control-label">Admin</label>
-
-                            <div class="col-md-1">
-                                <input id="is_admin" type="checkbox" class="form-control" name="is_admin" required>
                             </div>
                         </div>
 

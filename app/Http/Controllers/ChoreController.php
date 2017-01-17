@@ -45,6 +45,7 @@ class ChoreController extends Controller
         $chore->save();
         // Show chore create confirmation
         return view('chores.created')->with('data',$request);
+
     }
 
     /**
