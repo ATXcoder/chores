@@ -43,7 +43,18 @@
                         <a href="{{url('/admin/user/chore')}}">
                             <div class="panel-body">
                                 <img src="{{asset('img/chore_manage.png')}}" class="center-block">
-                                <h2 class="text-center">Manage Assigned Chores</h2>
+                                <h2 class="text-center">Assigned Chores</h2>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <a href="{{url('/admin/chore/edit')}}">
+                            <div class="panel-body">
+                                <img src="{{asset('img/settings.png')}}" class="center-block">
+                                <h2 class="text-center">Edit Chores</h2>
                             </div>
                         </a>
                     </div>

@@ -22,7 +22,8 @@ Route::get('/home', 'HomeController@index');
 /*
  * CHORE Routes
  */
-
+Route::get('/user/chore', 'UserChoresController@index');
+Route::post('/user/chore/{id}', 'UserChoresController@update');
 
 /*
  * ADMIN Routes
@@ -41,6 +42,9 @@ Route::post('/admin/chore/report', 'ChoreReportController@choreReport');
 Route::get('/admin/chore/manage', function(){
     return view('chores.manager');
 });
+Route::get('/admin/chore/edit','ChoreManagementController@index');
+Route::get('/admin/chore/edit/{id}', 'ChoreManagementController@edit');
+Route::post('/admin/chore/edit/{id}', 'ChoreManagementController@update');
 
 Route::get('/admin/user', 'AdminController@getUsers');
 Route::get('/admin/user/new', function(){

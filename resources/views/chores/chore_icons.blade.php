@@ -14,5 +14,4 @@
     <div class="col-md-2" id="vacuum">
         <img src="{{asset('img/chore_icons/vacuum.png')}}">
     </div>
-
 </div>

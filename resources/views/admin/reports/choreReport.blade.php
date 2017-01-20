@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('script')
+    <!--
     <script type="text/javascript">
         $(document).ready(function () {
             $('#filter').change(function () {
@@ -8,16 +9,35 @@
             });
         });
     </script>
+    -->
+@endsection
+
+@section('css')
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                {!! Form::open(['url' => '/admin/chore/report', 'method' => 'post', 'id'=>'filterForm']) !!}
-                {!! Form::label('filter', 'Filter', ['class' => 'control-label']) !!}
-                {!! Form::select('filter', $filter , $selected , ['class' => 'form-control','id'=>'filter']) !!}
-                {!! Form::close() !!}
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Report Filter</h2>
+                    </div>
+                    <div class="panel-body">
+                        {!! Form::open(['url' => '/admin/chore/report', 'method' => 'post', 'id'=>'filterForm']) !!}
+
+                        {!! Form::label('filterUsers', 'User', ['class' => 'control-label']) !!}
+                        {!! Form::select('filterUsers', $filterUsers ,null, ['class' => 'form-control']) !!}
+
+                        {!! Form::label('filter', 'Date', ['class' => 'control-label']) !!}
+                        {!! Form::select('filter', $filter , $selected , ['class' => 'form-control','id'=>'filter']) !!}
+
+                        {!! Form::submit('Submit', ['class' => 'form-control btn btn-primary', 'style'=>'width: 200px; margin-top: 10px;']) !!}
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+
             </div>
             <div class="row">
                 <!-- Check to see if we have data to show -->
@@ -42,9 +62,9 @@
                                     <td>{{$d['chore']->name}}</td>
                                     <td>{{$d['due_date']}}</td>
                                     @if($d['complete'] == 0)
-                                        <td>NO</td>
+                                        <td><i class="fa fa-times-circle fa-2x" aria-hidden="true" style="color: #ac2925"></i></td>
                                     @else
-                                        <td>YES</td>
+                                        <td><i class="fa fa-check-circle fa-2x" aria-hidden="true" style="color: #2ca02c"></i></td>
                                     @endif
 
                                 </tr>

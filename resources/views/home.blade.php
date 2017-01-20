@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-3 col-md-offset-1">
                 <div class="panel panel-default">
-                    <a href="#">
+                    <a href="{{url('/user/chore')}}">
                         <div class="panel-body">
                             <img src="{{asset('img/chore_list.png')}}" class="center-block">
                             <h2 class="text-center">My Chores</h2>
@@ -45,6 +45,16 @@
                         <div class="panel-body">
                             <img src="{{asset('img/leader_board.png')}}" class="center-block">
                             <h2 class="text-center">Score Board</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <a href="#">
+                        <div class="panel-body">
+                            <img src="{{asset('img/mail.png')}}" class="center-block">
+                            <h2 class="text-center">Notifications</h2>
                         </div>
                     </a>
                 </div>
