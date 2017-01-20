@@ -36,6 +36,7 @@ class AdminController extends Controller
         $userChore->chore_id = $request->chore;
         $userChore->due_date = $request->due;
         $userChore->complete = 0;
+        $userChore->choreStatus_id = 1;
         $userChore->save();
 
         $users = User::all()->where('is_admin','=',0)->pluck('name','id');

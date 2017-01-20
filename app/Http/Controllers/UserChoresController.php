@@ -94,6 +94,12 @@ class UserChoresController extends Controller
         $users = User::where('is_admin','=',1)->get();
         \Notification::send($users, new ChoreUpdated($updatedChore));
 
+        $user = Auth::user();
+        //$userChores = User_Chores::where('user_id','=',$user->id)->get();
+        $userChores = User_Chores_View::where('user_id','=',$user->id)->get();
+
+        return view('chores.index')->with('chores',$userChores);
+
         //return view('chores.index')->with('chores',$updatedChore);
     }
 

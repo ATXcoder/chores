@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Chore;
+use App\User_Bank;
 use Illuminate\Http\Request;
 use App\User;
 use App\User_Chores_View;
@@ -62,7 +64,7 @@ class ChoreApprovalController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -85,13 +87,31 @@ class ChoreApprovalController extends Controller
         $chore->choreStatus_id = $request->chore_status;
         $chore->save();
 
-
-
         //Grab info on chore we just updated
-        $newChore = User_Chores_View::find($request->chore_id);
+        $newChore = Chore::find($chore->chore_id);
 
+        //Add tokens if chore was approved
+        if($request->chore_status == 3) //If chore is approved
+        {
+
+            //Get user bank
+            $bank = User_Bank::where('user_id','=',Auth::id())->first();
+            //Get current tokens in bank
+            $currentTokens = $bank->tokens;
+            //Get amount of tokens chore worth
+            $newTokens = $newChore->token_value;
+            //Add new tokens to current tokens
+            $totalTokens = $currentTokens + $newTokens;
+            //Update bank with new amount of tokens
+            $bank->tokens = $totalTokens;
+            //Save
+            $bank->save();
+        }
+
+        //Get all chores still pending - if any
         $updateChores = User_Chores_View::where('choreStatus_id','=',2)->get();
 
+        //Banner message data
         $flashData=[
             'user' => $newChore->user_name,
             'chore' => $newChore->name,
