@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\User_Bank;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -27,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -64,12 +65,26 @@ class RegisterController extends Controller
     {
 
 
-        return User::create([
+        $newUser = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'username' => $data['name'],
+            "is_admin" => 0
         ]);
 
+        // Get the newly created user
+        $user = User::select('id')->where('email','=',$data['email'])->get();
+
+
+        User_Bank::create([
+            'user_id' => $user[0]->id,
+            'tokens' => 0
+        ]);
+
+        Return $newUser;
+
     }
+
+
 }

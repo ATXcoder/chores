@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default">
-                    <a href="#">
+                    <a href="{{url('/bank')}}">
                         <div class="panel-body">
                             <img src="{{asset('img/bank.png')}}" class="center-block">
                             <h2 class="text-center">My Bank</h2>

@@ -17,8 +17,8 @@ class CreateRewardsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->longText('description');
-            $table->string('image_uri');
-            $table->string('thumbnail_uri');
+            $table->string('image_uri')->nullable();
+            $table->string('thumbnail_uri')->nullable();
             $table->integer('token_cost');
             $table->boolean('active');
             $table->timestamps();

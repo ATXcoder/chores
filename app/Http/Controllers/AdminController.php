@@ -76,13 +76,19 @@ class AdminController extends Controller
         $user = User::find($request->userID);
         if($user->avatar_uri != nullOrEmptyString())
         {
-            //remove old avatar image from storage
+            //Convert string "storage/images/pic.jpg" into just "pic.jpg"
             $fileName = str_replace("storage/images/","",$user->avatar_uri);
+
+            //New file path is now "storage/app/public/images/pic.jpg
             $filePath = "storage/app/public/images"."/".$fileName;
 
+            //Set the full system path (i.e. C:\users\admin\...\pic.jpg
             $image_path = base_path().'/'.$filePath;
+
+            //Convert all slashes to backslashes(\) - for Windows
             $image_path = str_replace("/","\\",$image_path);
 
+            //Delete the file
             $fileDeleted = File::delete($image_path);
 
         }

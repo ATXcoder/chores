@@ -25,12 +25,21 @@ Route::get('/home', 'HomeController@index');
 Route::get('/user/chore', 'UserChoresController@index');
 Route::post('/user/chore/{id}', 'UserChoresController@update');
 
+
+/*
+ * BANK Routes
+ */
+Route::get('/bank', 'BankController@index');
+
+
 /*
  * ADMIN Routes
  */
 Route::get('/admin',function(){
     return view('admin.index');
 });
+Route::get('/admin/chore/approval','ChoreApprovalController@index');
+Route::post('/admin/chore/approval','ChoreApprovalController@update');
 Route::get('/admin/chore/new', 'ChoreController@create');
 Route::post('/admin/chore/new','ChoreController@store');
 Route::get('/admin/chore/assign','AdminController@choreAssignment');
