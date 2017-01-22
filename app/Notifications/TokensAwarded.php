@@ -7,19 +7,19 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ChoreUpdated extends Notification
+class TokensAwarded extends Notification
 {
     use Queueable;
-    private $updatedChore;
+    private $tokenData;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($chore)
+    public function __construct($tokenData)
     {
-        $this->updatedChore = $chore;
+        $this->tokenData = $tokenData;
     }
 
     /**
@@ -30,8 +30,7 @@ class ChoreUpdated extends Notification
      */
     public function via($notifiable)
     {
-        //return ['mail'];
-        return['database'];
+        return ['Database'];
     }
 
     /**
@@ -50,15 +49,10 @@ class ChoreUpdated extends Notification
 
     public function toDatabase($notifiable)
     {
-        $msg = $this->updatedChore->user_name." has marked the chore \"".$this->updatedChore->name.
-            "\" as done. Approve the chore at <a href='#'>here</a>";
+        $msg = $this->tokenData->user_name." has been awarded ".$this->tokenData->token_amount.
+            " tokens for successfully completing the chore: \"".$this->tokenData->chore_name."\"";
         return [
-            'title' => "Chore Updated",
-            'user_id' => $this->updatedChore->user_id,
-            'user_name' => $this->updatedChore->user_name,
-            'chore_id' => $this->updatedChore->id,
-            'chore_name' => $this->updatedChore->name,
-            'chore_status' => $this->updatedChore->status,
+            'title' => "Tokens Awarded",
             'msg' => $msg
         ];
     }

@@ -58,6 +58,9 @@ class ChoreManagementController extends Controller
      */
     public function edit($id)
     {
+        /*
+         * For updating a chore that already exist
+         */
         $chore = Chore::find($id);
         $icon = $chore->icon_uri;
         return view('chores.edit')->with(['chore'=> $chore, 'icon'=>json_encode($icon)]);
@@ -72,6 +75,9 @@ class ChoreManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /*
+         * For saving changes to a chore that already exist
+         */
         $chore = Chore::find($id);
         $chore->name = $request->name;
         $chore->description = $request->description;

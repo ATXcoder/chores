@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Notifications\DatabaseNotification; //For Database Notifications
+use App\Reward;
 
-class NotificationController extends Controller
+class RewardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,10 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $user = User::find(Auth::id());
-        $notificationData = $user->notifications;
+        //Showo all the rewards
+        $rewards = Reward::all();
 
-        return view('notifications.index')->with('notifications',$notificationData);
+        return view('reward.index')->with('rewards',$rewards);
     }
 
     /**
@@ -62,13 +60,7 @@ class NotificationController extends Controller
      */
     public function edit($id)
     {
-        //Get the notification
-        $notification = DatabaseNotification::find($id);
-
-        // Mark as read
-        $notification->markAsRead();
-
-        return view('notifications.edit')->with("notification", $notification);
+        //
     }
 
     /**
@@ -80,8 +72,7 @@ class NotificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
+        //
     }
 
     /**

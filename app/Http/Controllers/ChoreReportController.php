@@ -81,6 +81,7 @@ class ChoreReportController extends Controller
         $data = [];
 
         foreach ($userChores as $chore) {
+
             $tempData = [
                 'user' => User::find($chore->user_id),
                 'chore' => Chore::find($chore->chore_id),

@@ -23,8 +23,9 @@ class UserChoresController extends Controller
     public function index()
     {
         $user = Auth::user();
-        //$userChores = User_Chores::where('user_id','=',$user->id)->get();
-        $userChores = User_Chores_View::where('user_id','=',$user->id)->get();
+        $userChores = User_Chores_View::where('user_id','=',$user->id)
+            ->where('choreStatus_id','!=',3)
+            ->get();
 
         return view('chores.index')->with('chores',$userChores);
     }
@@ -81,26 +82,19 @@ class UserChoresController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         //Update the chore
         $chore = User_Chores::find($id);
         $chore->choreStatus_id = $request->newStatus;
         $chore->save();
 
         //Get the updated chore
-        $updatedChore = User_Chores::find($id);
+        $updatedChore = User_Chores_View::find($id);
 
         //Send notification that chore has been updated
         $users = User::where('is_admin','=',1)->get();
         \Notification::send($users, new ChoreUpdated($updatedChore));
 
-        $user = Auth::user();
-        //$userChores = User_Chores::where('user_id','=',$user->id)->get();
-        $userChores = User_Chores_View::where('user_id','=',$user->id)->get();
-
-        return view('chores.index')->with('chores',$userChores);
-
-        //return view('chores.index')->with('chores',$updatedChore);
+        return redirect()->action('UserChoresController@index');
     }
 
     /**

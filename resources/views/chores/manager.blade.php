@@ -65,7 +65,7 @@
                         <a href="{{url('/admin/chore/approval')}}">
                             <div class="panel-body">
                                 <img src="{{asset('img/settings.png')}}" class="center-block">
-                                <h2 class="text-center">Edit Chores</h2>
+                                <h2 class="text-center">Approve Chores</h2>
                             </div>
                         </a>
                     </div>

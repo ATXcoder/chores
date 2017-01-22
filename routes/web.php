@@ -33,6 +33,13 @@ Route::get('/bank', 'BankController@index');
 
 
 /*
+ * NOTIFICATION Routes
+ */
+Route::get('/notification', 'NotificationController@index');
+Route::get('/notification/{id}', "NotificationController@edit");
+
+
+/*
  * ADMIN Routes
  */
 Route::get('/admin',function(){

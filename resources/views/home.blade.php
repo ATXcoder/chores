@@ -51,7 +51,7 @@
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default">
-                    <a href="#">
+                    <a href="{{url('/notification')}}">
                         <div class="panel-body">
                             <img src="{{asset('img/mail.png')}}" class="center-block">
                             <h2 class="text-center">Notifications</h2>

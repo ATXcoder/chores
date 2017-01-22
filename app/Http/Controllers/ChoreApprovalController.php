@@ -9,6 +9,7 @@ use App\User;
 use App\User_Chores_View;
 use App\User_Chores;
 
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class ChoreApprovalController extends Controller
@@ -82,9 +83,24 @@ class ChoreApprovalController extends Controller
      */
     public function update(Request $request)
     {
+        /*
+         * Function to Approve/Reject chore
+         * and award tokens if needed
+         */
         //Grab the chore to update and update it
         $chore = User_Chores::find($request->chore_id);
+
+        //Mark chore complete only if it has been approved
+        if($request->chore_status == 3)
+        {
+            $chore->complete = 1;
+        }else
+        {
+            $chore->complete = 0;
+        }
+        //Update chore status (Active, Pending, etc...)
         $chore->choreStatus_id = $request->chore_status;
+        //Update the chore
         $chore->save();
 
         //Grab info on chore we just updated
@@ -106,17 +122,24 @@ class ChoreApprovalController extends Controller
             $bank->tokens = $totalTokens;
             //Save
             $bank->save();
+
+            //Send out notification of tokens awarded
+            $users = User::where('is_admin','=',1)->get(); //Get all admins
+            \Notification::send($users, new ChoreUpdated($updatedChore));
         }
 
         //Get all chores still pending - if any
         $updateChores = User_Chores_View::where('choreStatus_id','=',2)->get();
 
+        $tmp = User_Chores_View::where("id",'=',$request->chore_id)->first();
+
         //Banner message data
         $flashData=[
-            'user' => $newChore->user_name,
-            'chore' => $newChore->name,
+            'user' => $tmp->user_name,
+            'chore' => $tmp->name,
             'status' => $request->status
         ];
+
 
         \Session::flash('choreData', $flashData);
 
