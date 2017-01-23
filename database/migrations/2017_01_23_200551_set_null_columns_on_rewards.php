@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SetNullableCollumnsOnRewards extends Migration
+class SetNullColumnsOnRewards extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class SetNullableCollumnsOnRewards extends Migration
     public function up()
     {
         Schema::table('rewards', function (Blueprint $table) {
-
-
+            //
         });
     }
 

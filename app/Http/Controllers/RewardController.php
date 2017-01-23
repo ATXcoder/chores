@@ -29,7 +29,7 @@ class RewardController extends Controller
      */
     public function create()
     {
-        //
+        return view('reward.create');
     }
 
     /**
@@ -40,7 +40,14 @@ class RewardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reward = Reward::create([
+            'name' => $request->name,
+            'description'=> $request->description,
+            'token_cost' => $request->token_cost,
+            'active' => 1
+        ]);
+
+        return redirect()->action('RewardController@index');
     }
 
     /**

@@ -41,6 +41,8 @@ Route::get('/bank', 'BankController@index');
  * REWARD Routes
  */
 Route::get('/reward','RewardController@index');
+Route::get('reward/create','RewardController@create');
+Route::post('reward/create','RewardController@store');
 Route::get('/reward/{id}','RewardController@show');
 
 

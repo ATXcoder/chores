@@ -23,7 +23,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            @if($tokens[0]['tokens'] > $reward->token_cost)
+                            @if($tokens[0]['tokens'] >= $reward->token_cost)
                                 {!! Form::open(['url' => url('user/reward'), 'method' => 'post']) !!}
                                 {!! Form::hidden('reward_id', $reward->id, ['id' => 'reward_id']) !!}
                                 {!! Form::submit('Buy', ['class' => 'form-control btn btn-success', 'style'=>'width: 150px;']) !!}

@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
                 <div class="panel panel-default">
                     <a href="{{url('/user/chore')}}">
                         <div class="panel-body">
@@ -29,6 +29,16 @@
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default">
+                    <a href="{{url('/user/reward')}}">
+                        <div class="panel-body">
+                            <img src="{{asset('img/reward.png')}}" class="center-block">
+                            <h2 class="text-center">My Rewards</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
                     <a href="{{url('reward')}}">
                         <div class="panel-body">
                             <img src="{{asset('img/store.png')}}" class="center-block">
@@ -39,7 +49,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
                 <div class="panel panel-default">
                     <a href="#">
                         <div class="panel-body">
