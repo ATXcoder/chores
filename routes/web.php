@@ -20,16 +20,28 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 /*
- * CHORE Routes
+ * USER Routes
  */
+// Chores
 Route::get('/user/chore', 'UserChoresController@index');
 Route::post('/user/chore/{id}', 'UserChoresController@update');
+// Rewards
+Route::get('user/reward','UserRewardsController@index');
+Route::post('/user/reward','UserRewardsController@store');
+Route::post('/user/reward/{id}','UserRewardsController@update');
 
 
 /*
  * BANK Routes
  */
 Route::get('/bank', 'BankController@index');
+
+
+/*
+ * REWARD Routes
+ */
+Route::get('/reward','RewardController@index');
+Route::get('/reward/{id}','RewardController@show');
 
 
 /*

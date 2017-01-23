@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default">
-                    <a href="#">
+                    <a href="{{url('reward')}}">
                         <div class="panel-body">
                             <img src="{{asset('img/store.png')}}" class="center-block">
                             <h2 class="text-center">Reward Store</h2>

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User_Bank;
-use Illuminate\Http\Request;
 use App\Reward;
+use App\User_Reward;
+use App\User_Reward_View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RewardController extends Controller
+class UserRewardsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,9 @@ class RewardController extends Controller
      */
     public function index()
     {
-        //Showo all the rewards
-        $rewards = Reward::all();
+        $userRewards = User_Reward_View::all()->where('user_id','=',Auth::id());
 
-        return view('reward.index')->with('rewards',$rewards);
+        return view('user_rewards.index')->with('userRewards',$userRewards);
     }
 
     /**
@@ -40,7 +40,21 @@ class RewardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Get user
+        $user = $request->user();
+
+        //Get reward
+        $reward = Reward::find($request->reward_id);
+
+        //Get instance of User_Reward
+        $userReward = User_Reward::create([
+            'user_id' => $user->id,
+            'reward_id' => $reward->id,
+            'reward_used' => 0
+        ]);
+
+        return redirect()->action('UserRewardsController@index');
+
     }
 
     /**
@@ -51,13 +65,7 @@ class RewardController extends Controller
      */
     public function show($id)
     {
-        //Get the reward
-        $reward = Reward::find($id);
-
-        //Get the user's token balance
-        $tokens = User_Bank::select('tokens')->where('user_id','=',Auth::id())->get();
-
-        return view('reward.show')->with(['reward'=>$reward, 'tokens'=>$tokens]);
+        //
     }
 
     /**
@@ -80,7 +88,12 @@ class RewardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Mark reward as redeemed
+        $user_reward = User_Reward::find($id);
+        $user_reward->reward_used = 1;
+        $user_reward->save();
+
+        //Notify Admins
     }
 
     /**
