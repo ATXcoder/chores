@@ -9,6 +9,7 @@ use App\Chore;
 use App\User_Chores;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -54,7 +55,7 @@ class AdminController extends Controller
         ];
 
         //$request->session()->flash('chore', $msg);
-        \Session::flash('chore', $msg);
+        Session::flash('chore', $msg);
 
         return view('chores.assign')->with('data',$data);
     }
@@ -74,8 +75,11 @@ class AdminController extends Controller
 
     public function saveUser(Request $request)
     {
+
         $user = User::find($request->userID);
-        if($user->avatar_uri != nullOrEmptyString())
+
+        //$user->avatar_uri != nullOrEmptyString()
+        if($request->file('image') != null)
         {
             //Convert string "storage/images/pic.jpg" into just "pic.jpg"
             $fileName = str_replace("storage/images/","",$user->avatar_uri);
@@ -92,15 +96,23 @@ class AdminController extends Controller
             //Delete the file
             $fileDeleted = File::delete($image_path);
 
+            $path = "storage/" . $request->file('image')->store('images');
+            $user->avatar_uri = $path;
+
         }
-        $path = "storage/".$request->image->store('images');
+
+        if ($request->has('is_admin')) {
+            $user->is_admin = 1;
+        } else{
+            $user->is_admin = 0;
+        }
+
         $user->name = $request->name;
         $user->username = $request->username;
         $user->email = $request->email;
-        $user->avatar_uri = $path;
         $user->save();
 
-        \Session::flash('user', $request->name);
+        Session::flash('user', $request->name);
 
         return view('admin.edit-user')->with('data', $user);
     }

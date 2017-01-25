@@ -54,9 +54,18 @@
                             <li><a href="{{ url('/login') }}">Login</a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                                @if(Auth::user()->avatar_uri != null)
+                                    <img class="img-circle" src="{{asset(Auth::user()->avatar_uri)}}" width="50px" height="50px"
+                                         style="margin-top: 2px; margin-bottom: 2px;">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="float: right;">
+                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                    </a>
+                                @else
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="float: right;">
+                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                    </a>
+                                @endif
+
                                 <ul class="dropdown-menu" role="menu">
                                     @if (Auth::user()->is_admin == 1)
                                         <li>
