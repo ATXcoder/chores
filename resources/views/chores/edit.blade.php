@@ -9,11 +9,13 @@
         $(document).ready(function(){
             /**
              * Highlight icon when editing
-             * a chore
+             * a chore.
              */
             var icon = <?php echo $icon; ?>;
-            $('#' + icon).addClass('chore_icon_active');
-            $('#icon_uri').val(icon);
+            if(icon) {
+                $('#' + icon).addClass('chore_icon_active');
+                $('#icon_uri').val(icon);
+            }
 
 
             /**

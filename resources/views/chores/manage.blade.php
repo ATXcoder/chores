@@ -23,7 +23,9 @@ Controller: ChoreController
                     @foreach($chores as $chore)
                         <tr>
                             <td><a class="btn btn-primary" href="{{url('/admin/chore/edit/'.$chore->id)}}"/>Edit</td>
-                            <td>{{$chore->name}}</td>
+                            <td>
+                                <img src="{{asset('/img/chore_icons')."/".$chore->icon_uri.".png"}}">
+                                {{$chore->name}}</td>
                             <td>{{$chore->description}}</td>
                             <td>{{$chore->token_value}}</td>
                             @if($chore['active'] == 0)
