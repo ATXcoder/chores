@@ -54,10 +54,14 @@ Route::get('/notification/{id}', "NotificationController@edit");
 /*
  * ADMIN Routes
  */
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin', function () {
         return view('admin.index');
     });
+
+    /**
+     * CHORES
+     */
     Route::get('/admin/chore/approval', 'ChoreApprovalController@index');
     Route::post('/admin/chore/approval', 'ChoreApprovalController@update');
     Route::get('/admin/chore/new', 'ChoreController@create');
@@ -75,6 +79,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/chore/edit/{id}', 'ChoreManagementController@edit');
     Route::post('/admin/chore/edit/{id}', 'ChoreManagementController@update');
 
+    /**
+     * USERS
+     */
     Route::get('/admin/user', 'AdminController@getUsers');
     Route::get('/admin/user/new', function () {
         return view('auth.register');
@@ -85,6 +92,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/user/{id}', 'AdminController@editUser');
     Route::post('/admin/user/{id}', 'AdminController@saveUser');
 
+    /**
+     * REWARDS
+     */
     Route::get('/admin/reward/create', 'RewardController@create');
     Route::post('/admin/reward/create', 'RewardController@store');
 });
