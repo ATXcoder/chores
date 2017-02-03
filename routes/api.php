@@ -13,8 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
+/*
 Route::get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth.basic');
+})->middleware('auth:api');
+*/
 
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('basicAuth:api');
+
+Route::get('/user/chore', 'API\UserChoresController@index')->middleware('basicAuth:api');
 
