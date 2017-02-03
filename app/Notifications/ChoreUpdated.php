@@ -51,7 +51,7 @@ class ChoreUpdated extends Notification
     public function toDatabase($notifiable)
     {
         $msg = $this->updatedChore->user_name." has marked the chore \"".$this->updatedChore->name.
-            "\" as done. Approve the chore at <a href='#'>here</a>";
+            "\" as done.";
         return [
             'title' => "Chore Updated",
             'user_id' => $this->updatedChore->user_id,

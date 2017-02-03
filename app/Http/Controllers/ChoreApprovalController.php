@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\User_Chores_View;
 use App\User_Chores;
+use App\Notifications\ChoreUpdated;
 
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
@@ -87,8 +88,14 @@ class ChoreApprovalController extends Controller
          * Function to Approve/Reject chore
          * and award tokens if needed
          */
+
         //Grab the chore to update and update it
         $chore = User_Chores::find($request->chore_id);
+
+
+        //Grab ID of person it's assigned to
+        $choreOwnerID = $chore->user_id;
+
 
         //Mark chore complete only if it has been approved
         if($request->chore_status == 3)
@@ -98,24 +105,24 @@ class ChoreApprovalController extends Controller
         {
             $chore->complete = 0;
         }
+
         //Update chore status (Active, Pending, etc...)
         $chore->choreStatus_id = $request->chore_status;
         //Update the chore
         $chore->save();
 
-        //Grab info on chore we just updated
-        $newChore = Chore::find($chore->chore_id);
+        //Grab info about the chore we just updated
+        $choreDetails = Chore::find($chore->chore_id);
 
         //Add tokens if chore was approved
-        if($request->chore_status == 3) //If chore is approved
+        if($request->chore_status == 3) //If chore was approved
         {
-
-            //Get user bank
-            $bank = User_Bank::where('user_id','=',Auth::id())->first();
+            //Get bank of user chore was assigned to
+            $bank = User_Bank::where('user_id','=',$chore->user_id)->first();
             //Get current tokens in bank
             $currentTokens = $bank->tokens;
             //Get amount of tokens chore worth
-            $newTokens = $newChore->token_value;
+            $newTokens = $choreDetails->token_value;
             //Add new tokens to current tokens
             $totalTokens = $currentTokens + $newTokens;
             //Update bank with new amount of tokens
@@ -124,14 +131,16 @@ class ChoreApprovalController extends Controller
             $bank->save();
 
             //Send out notification of tokens awarded
+            $tmp = User_Chores_View::where("id",'=',$chore->id)->first();
             $users = User::where('is_admin','=',1)->get(); //Get all admins
-            \Notification::send($users, new ChoreUpdated($updatedChore));
+
+            \Notification::send($users, new ChoreUpdated($tmp));
         }
 
         //Get all chores still pending - if any
         $updateChores = User_Chores_View::where('choreStatus_id','=',2)->get();
 
-        $tmp = User_Chores_View::where("id",'=',$request->chore_id)->first();
+
 
         //Banner message data
         $flashData=[

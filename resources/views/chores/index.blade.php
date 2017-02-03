@@ -14,7 +14,7 @@ View for showing a user their chores
         <div class="row">
             <div class="col-md-12">
                 @if($chores->count() == 0)
-                    <h2>No Chores to Approve</h2>
+                    <h2>No Chores</h2>
                 @else
                     <table class="table table-striped table-bordered">
                         <thead>
